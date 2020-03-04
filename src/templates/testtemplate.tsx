@@ -50,6 +50,8 @@ export interface TemplateProps {
 }
 
 export class TestTemplate extends React.Component<TemplateProps, {}> {
+
+
     componentDidMount() {
         // create map
         var wicket = new Wkt.Wkt();
@@ -62,7 +64,7 @@ export class TestTemplate extends React.Component<TemplateProps, {}> {
         )
         wicket.read(wkt_geom)
         let location = wicket.toJson();
-        let map = L.map('map', {
+        let map = L.map('map-'+this.props.elementId, {
           center: [location.coordinates[1],location.coordinates[0]],
           zoom: 16,
           layers: [
@@ -93,7 +95,7 @@ export class TestTemplate extends React.Component<TemplateProps, {}> {
                             return(property.values[0].value)
                     }
                 )}
-                <div id='map' className='geo_point'/>
+                <div id={'map-'+this.props.elementId} className='geo_point'/>
                 </div>
             </div>
         );
