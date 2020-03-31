@@ -15,7 +15,17 @@ import '../css/explorer.css';
 /**
  * Ontodia import
  */
-const Ontodia = require('ontodia');
+import * as Ontodia from 'ontodia';
+import {
+  WorkspaceProps,
+  Workspace,
+  SerializedDiagram,
+  ElementIri,
+  DataProvider,
+  Dictionary,
+  ElementModel,
+} from 'ontodia';
+import { ClassAttributes } from 'react';
 
 /**
  * This function returns a color and icon (null everywhere now) to canvas
@@ -70,7 +80,7 @@ const TestTypeStyleBundle = (types: string | string[]) => {
  * ontodia function fired when the workspace is mounted, this is the point where the
  * data initialization takes place
  */
-function onWorkspaceMounted(workspace) {
+function onWorkspaceMounted(workspace: Workspace) {
   if (!workspace) {
     return;
   }
@@ -103,7 +113,13 @@ function onWorkspaceMounted(workspace) {
   /**
    * Add public endpoint and refer to our modified dialect
    */
-  model.importLayout({
+  const initialLayout: {
+    dataProvider: DataProvider;
+    preloadedElements?: Dictionary<ElementModel>;
+    validateLinks?: boolean;
+    diagram?: SerializedDiagram;
+    hideUnusedLinkTypes?: boolean;
+  } = {
     dataProvider: new Ontodia.SparqlDataProvider(
       {
         endpointUrl: 'https://trifid-lindas.cluster.ldbar.ch/query',
@@ -111,13 +127,18 @@ function onWorkspaceMounted(workspace) {
       },
       SparqlDialect
     ),
-  });
+  };
+  const url = new URL(window.location.href);
+  const layout = url.searchParams.get('layout');
+  if (layout) {
+    initialLayout.diagram = JSON.parse(atob(layout)) as SerializedDiagram;
+  }
+  model.importLayout(initialLayout);
 
   /**
    * get the '?resource' search param and load that resource.
    */
-  const url = new URL(window.location.href);
-  const resource = url.searchParams.get('resource');
+  const resource = url.searchParams.get('resource') as ElementIri;
   if (resource) {
     const elm = workspace
       .getModel()
@@ -130,9 +151,9 @@ function onWorkspaceMounted(workspace) {
 }
 
 /**
- * properties for the ReactJS componente creation
+ * properties for the ReactJS component creation
  */
-const props = {
+const props: WorkspaceProps & ClassAttributes<Workspace> = {
   // function to call when workspace is mounted
   ref: onWorkspaceMounted,
   // Typestyleresolver ( see above )
@@ -141,6 +162,10 @@ const props = {
   elementTemplateResolver: templateResolver,
   languages: [{ code: 'en', label: 'English' }],
   language: 'en',
+  onSaveDiagram: (workspace) => {
+    const serializedDiagram = workspace.getModel().exportLayout();
+    console.log(btoa(JSON.stringify(serializedDiagram)));
+  },
 };
 // ReactJS way of adding components
 document.addEventListener('DOMContentLoaded', () => {
