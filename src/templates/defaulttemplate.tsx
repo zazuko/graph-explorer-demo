@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { ElementIri, ElementModel, Dictionary, LocalizedString, Property, isIriProperty, isLiteralProperty  } from 'ontodia/src/ontodia/data/model';
-
 import * as moment from 'moment';
 import { isEncodedBlank } from 'ontodia/src/ontodia/data/sparql/blankNodes';
 
-    
 const CLASS_NAME = 'ontodia-standard-template';
 
 /* Default Template from Ontodia */
@@ -14,7 +12,6 @@ export type PropArray = Array<{
     name: string;
     property: Property;
 }>;
-
 
 export interface TemplateProps {
     elementId: string;
@@ -32,16 +29,13 @@ export interface TemplateProps {
 
 export class DefaultTemplate extends React.Component<TemplateProps, {}> {
     render() {
-        return (
-           this.renderTemplate()
-        );
+        return this.renderTemplate()
     }
 
     private renderTemplate() {
         const {color, types, isExpanded, iri, propsAsList} = this.props;
         const label = this.getLabel();
 
-        
         return (
             <div className={CLASS_NAME}>
                 <div className={`${CLASS_NAME}__main`} style={{backgroundColor: color, borderColor: color}}>
@@ -125,7 +119,9 @@ export class DefaultTemplate extends React.Component<TemplateProps, {}> {
     private renderPhoto() {
         const {color, imgUrl} = this.props;
 
-        if (!imgUrl) { return null; }
+        if (!imgUrl) {
+            return null;
+        }
 
         return (
             <div className={`${CLASS_NAME}__photo`} style={{borderColor: color}}>
@@ -143,7 +139,8 @@ export class DefaultTemplate extends React.Component<TemplateProps, {}> {
                     <img src={imgUrl} className={`${CLASS_NAME}__thumbnail-image`} />
                 </div>
             );
-        } else if (iconUrl) {
+        } 
+        if (iconUrl) {
             return (
                 <div className={`${CLASS_NAME}__thumbnail`} aria-hidden='true'>
                     <img src={iconUrl} className={`${CLASS_NAME}__thumbnail-icon`} />
@@ -171,24 +168,24 @@ export class DefaultTemplate extends React.Component<TemplateProps, {}> {
     private getProperty(props: Dictionary<Property>, id: string) {
         if (props && props[id]) {
             return this.getPropertyValues(props[id]).join(', ');
-        } else {
-            return undefined;
         }
+        return
     }
     
     private getPropertyValues(property: Property): string[] {
         if (isIriProperty(property)) {
             return property.values.map(({value}) => value);
-        } else if (isLiteralProperty(property)) {
-            return property.values.map(function(value) {
-                if(value.datatype.value == "http://www.w3.org/2001/XMLSchema#dateTime")
-                    return(moment(value.value).format('MMM D YYYY HH:mm:ssA'))
+        }
+        if (isLiteralProperty(property)) {
+            return property.values.map((value) => {
+                if (value.datatype.value === "http://www.w3.org/2001/XMLSchema#dateTime") {
+                    return moment(value.value).format('MMM D YYYY HH:mm:ssA');
+                }
                 return value.value;
             })
         }
         return [];
     }
-
 }
 
 interface PinnedProperties {

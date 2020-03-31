@@ -1,5 +1,5 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
+import * as React from 'react';
+import * as ReactDOM from 'react-dom'
 
 /**
  * import our node template replacements, referenced in the template resolver
@@ -10,7 +10,7 @@ import { TestTemplate } from  './templates/testtemplate'
 /**
  * Ontodia import
  */
-var Ontodia = require('ontodia')
+const Ontodia = require('ontodia')
 
 /**
  * we fixed some sizing issues in the CSS container.
@@ -22,44 +22,43 @@ import '../css/explorer.css'
  *  so that icons can be drawn in the list boxes
  */
 const TestTypeStyleBundle = types => {
-    if (types.indexOf('http://www.w3.org/2002/07/owl#Class') !== -1 ||
-        types.indexOf('http://www.w3.org/2000/01/rdf-schema#Class') !== -1
-    ) {
-        return {color: '#eaac77', icon: null};
-    } else if (types.indexOf('http://www.w3.org/2002/07/owl#ObjectProperty') !== -1) {
-        return {color: '#34c7f3', icon: null};
-    } else if (types.indexOf('http://www.w3.org/2002/07/owl#DatatypeProperty') !== -1) {
-        return {color: '#34c7f3', icon: null};
-    } else if (
-        types.indexOf('http://xmlns.com/foaf/0.1/Person') !== -1 ||
-        types.indexOf('http://www.wikidata.org/entity/Q5') !== -1
-    ) {
-        return {color: '#eb7777', icon: null};
-    } else if (types.indexOf('http://www.wikidata.org/entity/Q6256') !== -1) {
-        return {color: '#77ca98', icon: null};
-    } else if (
-        types.indexOf('http://schema.org/Organization') !== -1 ||
-        types.indexOf('http://dbpedia.org/ontology/Organisation') !== -1 ||
-        types.indexOf('http://xmlns.com/foaf/0.1/Organization') !== -1 ||
-        types.indexOf('http://www.wikidata.org/entity/Q43229') !== -1
-    ) {
-        return {color: '#77ca98', icon: null};
-    } else if (
-        types.indexOf('http://www.wikidata.org/entity/Q618123') !== -1 ||
-        types.indexOf('http://www.w3.org/2003/01/geo/wgs84_pos#Point') !== -1
-    ) {
-        return {color: '#bebc71', icon: null};
-    } else if (
-        types.indexOf('http://www.wikidata.org/entity/Q1190554') !== -1 
-    )
-    {
-        return {color: '#b4b1fb', icon: null};
-    } else if (types.indexOf('http://www.wikidata.org/entity/Q488383') !== -1) {
-        return {color: '#53ccb2', icon: null};
-   
-    } else {
-        return undefined;
+    if (types.includes('http://www.w3.org/2002/07/owl#Class') ||
+        types.includes('http://www.w3.org/2000/01/rdf-schema#Class')) {
+        return {color: '#eaac77', icon: null}
     }
+    if (types.includes('http://www.w3.org/2002/07/owl#ObjectProperty')) {
+        return {color: '#34c7f3', icon: null}
+    }
+    if (types.includes('http://www.w3.org/2002/07/owl#DatatypeProperty')) {
+        return {color: '#34c7f3', icon: null}
+    }
+    if (
+        types.includes('http://xmlns.com/foaf/0.1/Person') ||
+        types.includes('http://www.wikidata.org/entity/Q5')) {
+        return {color: '#eb7777', icon: null}
+    }
+    if (types.includes('http://www.wikidata.org/entity/Q6256')) {
+        return {color: '#77ca98', icon: null}
+    }
+    if (
+        types.includes('http://schema.org/Organization') ||
+        types.includes('http://dbpedia.org/ontology/Organisation') ||
+        types.includes('http://xmlns.com/foaf/0.1/Organization') ||
+        types.includes('http://www.wikidata.org/entity/Q43229')) {
+        return {color: '#77ca98', icon: null}
+    }
+    if (
+        types.includes('http://www.wikidata.org/entity/Q618123') ||
+        types.includes('http://www.w3.org/2003/01/geo/wgs84_pos#Point')) {
+        return {color: '#bebc71', icon: null}
+    }
+    if (types.includes('http://www.wikidata.org/entity/Q1190554')) {
+        return {color: '#b4b1fb', icon: null}
+    }
+    if (types.includes('http://www.wikidata.org/entity/Q488383')) {
+        return {color: '#53ccb2', icon: null}
+    }
+    return
 }; 
 
 /**
@@ -67,27 +66,30 @@ const TestTypeStyleBundle = types => {
  * data initialization takes place
  */
 function onWorkspaceMounted(workspace) {
-    if (!workspace) { return; }
+    if (!workspace) {
+        return;
+    }
 
     /**
-     * the internal model ( not related to rdf-js)
+     * the internal model (not related to rdf-js)
      */
-    const model = workspace.getModel();
+    const model = workspace.getModel()
     /**
      * see https://github.com/metaphacts/ontodia/blob/master/src/ontodia/data/sparql/sparqlDataProviderSettings.ts
      * 
      * we pickup the OWLRDFSSetting and replace some of the queries with stardog variants
      */
-     let SparqlDialect = Ontodia.OWLRDFSSettings
-     /**
-      * user Stardog defined functions, requires FT search to be enabled
-      */
-     SparqlDialect.fullTextSearch = {
-            prefix: '',
-            queryPattern: `
+    const SparqlDialect = Ontodia.OWLRDFSSettings
+    /**
+     * user Stardog defined functions, requires FT search to be enabled
+     */
+    SparqlDialect.fullTextSearch = {
+        prefix: '',
+        queryPattern: `
             ?inst rdfs:label ?searchLabel.
             (?searchLabel ?score) <tag:stardog:api:property:textMatch> "\${text}".
-        `}
+        `
+    }
     /**
      * replace filter type for performance improvements
      */
@@ -106,15 +108,14 @@ function onWorkspaceMounted(workspace) {
     /**
      * get the '?resource' search param and load that resource.
      */
-    let url = new URL(window.location.href);
-    let resource = url.searchParams.get("resource");
-    if(resource != null)
-    {
-    	let elm = workspace.getModel().dataProvider.elementInfo({elementIds: [resource]});
-        elm.then(function(arg){
+    const url = new URL(window.location.href)
+    const resource = url.searchParams.get("resource")
+    if (resource) {
+        const elm = workspace.getModel().dataProvider.elementInfo({elementIds: [resource]})
+        elm.then((arg) => {
             workspace.getModel().createElement(arg[resource])
-            workspace.forceLayout();
-        });
+            workspace.forceLayout()
+        })
     }
 }
 
@@ -134,20 +135,19 @@ const props = {
     language: 'en'
 };
 // ReactJS way of adding components
- document.addEventListener('DOMContentLoaded', () => {
-        ReactDOM.render(React.createElement(Ontodia.Workspace, props), document.getElementById('onto-container'))
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    ReactDOM.render(React.createElement(Ontodia.Workspace, props), document.getElementById('onto-container'))
+});
  
  /**
   * based on a type return a template to render the specific type
   */
  function templateResolver(types) {
-        // if we have geos:Geometry then use the test template to draw a map, all other default
-        if (types.indexOf('http://www.opengis.net/ont/geosparql#Geometry') !== -1) {
-            // see templates/testtemplate.tsx
-	        return TestTemplate;
-	    } else {
-            // see defaulttemplate.tsx
-	        return DefaultTemplate
-	    }
-	}
+    // if we have geos:Geometry then use the test template to draw a map, all other default
+    if (types.includes('http://www.opengis.net/ont/geosparql#Geometry')) {
+        // see templates/testtemplate.tsx
+        return TestTemplate
+    }
+    // see defaulttemplate.tsx
+    return DefaultTemplate
+}

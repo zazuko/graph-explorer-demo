@@ -1,6 +1,5 @@
 const path = require('path');
-var webpack = require("webpack");
-
+const webpack = require('webpack');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 
 module.exports = {
@@ -18,41 +17,38 @@ module.exports = {
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
-},
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'explorer.js'
   },
   devServer: {
-         contentBase: './dist',
-         port: 8088
-       },
+    contentBase: './dist',
+    port: 8088
+  },
   module: {
-        rules: [
-           {
-             test: /\.ts$|\.tsx$/, 
-             loader: 'ts-loader',
-             options: { allowTsInNodeModules: true }
-  			}, 
-           {
-             test: /\.css$/,
-             use: [
-              'style-loader',
-               'css-loader',
-             ],
-           },
-           {
-            test: /\.(jpe?g|gif|png|svg)$/i,
-            use: [
-              {
-                loader: 'url-loader',
-                options: {
-                  limit: 8192,
-                },
-              },
-            ],
+    rules: [
+      {
+        test: /\.ts$|\.tsx$/, 
+        loader: 'ts-loader',
+        options: { allowTsInNodeModules: true }
+      }, 
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.(jpe?g|gif|png|svg)$/i,
+        use: [{
+          loader: 'url-loader',
+          options: {
+            limit: 8192,
           },
-         ],
-         
-       },
+        }],
+      },
+    ],
+  },
 };
