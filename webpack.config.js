@@ -1,18 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
 module.exports = {
   mode: 'development',
   entry: './src/index.ts',
   plugins: [
-    new webpack.ProvidePlugin({
-      /*$: 'jquery',
-      jQuery: 'jquery',*/
-      //superCm: 'context-menu.min.js'
-    }),
+    // new BundleAnalyzerPlugin(),
     new MomentLocalesPlugin({
-      localesToKeep: ['en', 'nl'],
+      localesToKeep: ['en'],
     }),
   ],
   resolve: {
