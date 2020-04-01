@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import * as React from 'react';
 import {
   ElementIri,
@@ -6,8 +7,7 @@ import {
   Property,
   isIriProperty,
   isLiteralProperty,
-} from 'ontodia/src/ontodia/data/model';
-import * as moment from 'moment';
+} from 'ontodia';
 import { isEncodedBlank } from 'ontodia/src/ontodia/data/sparql/blankNodes';
 const CLASS_NAME = 'ontodia-standard-template';
 

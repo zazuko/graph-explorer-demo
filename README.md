@@ -1,5 +1,5 @@
 # ontodia-demo
-Demo of modifing ontodia
+Demo of customized Ontodia
 
 Usage:
 
@@ -11,3 +11,7 @@ http://localhost:8088/
 shows ontodia to show any resource in the system: add ?resource=
 
 http://localhost:8088/?resource=http://lod.opentransportdata.swiss/didok/8588701
+
+## Publishing the demo
+
+* `npm run publish`
