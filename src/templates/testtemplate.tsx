@@ -60,7 +60,7 @@ export class TestTemplate extends React.Component<TemplateProps, {}> {
     const wicket = new Wkt.Wkt();
     let wicketGeom;
     this.props.propsAsList.some(({ name, id, property }) => {
-      if (id == 'http://www.opengis.net/ont/geosparql#asWKT') {
+      if (id === 'http://www.opengis.net/ont/geosparql#asWKT') {
         wicketGeom = property.values[0].value;
       }
       return true;
@@ -87,6 +87,13 @@ export class TestTemplate extends React.Component<TemplateProps, {}> {
   }
 
   render(): JSX.Element {
+    const propsAsList = this.props.propsAsList
+      .map(({ name, id, property }) => {
+        if (id == 'http://www.opengis.net/ont/geosparql#asWKT') {
+          return property.values[0].value;
+        }
+      })
+      .filter(Boolean);
     return (
       <div
         className="ontodia-standard-template"
@@ -95,13 +102,7 @@ export class TestTemplate extends React.Component<TemplateProps, {}> {
         <div className={this.props.iconUrl} />
         <div className="example-label">
           {this.props.label}
-          {this.props.propsAsList
-            .map(({ name, id, property }) => {
-              if (id == 'http://www.opengis.net/ont/geosparql#asWKT') {
-                return property.values[0].value;
-              }
-            })
-            .filter(Boolean)}
+          {propsAsList}
           <div id={'map-' + this.props.elementId} className="geo_point" />
         </div>
       </div>

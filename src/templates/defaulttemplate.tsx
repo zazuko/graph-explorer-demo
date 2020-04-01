@@ -9,7 +9,6 @@ import {
 } from 'ontodia/src/ontodia/data/model';
 import * as moment from 'moment';
 import { isEncodedBlank } from 'ontodia/src/ontodia/data/sparql/blankNodes';
-
 const CLASS_NAME = 'ontodia-standard-template';
 
 /* Default Template from Ontodia */
