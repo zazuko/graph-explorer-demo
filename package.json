@@ -20,7 +20,7 @@
     "watch": "webpack --watch",
     "start": "webpack-dev-server --host 0.0.0.0",
     "build": "webpack --mode=production",
-    "deploy": "npm run build && gh-pages -d dist"
+    "deploy": "npm run build && touch dist/.nojekyll && gh-pages -t -d dist"
   },
   "dependencies": {
     "leaflet": "^1.6.0",

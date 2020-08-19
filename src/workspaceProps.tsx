@@ -113,7 +113,7 @@ function onWorkspaceMounted(workspace: Workspace) {
   } = {
     dataProvider: new Ontodia.SparqlDataProvider(
       {
-        endpointUrl: 'https://trifid-lindas.cluster.ldbar.ch/query',
+        endpointUrl: 'https://ld.zazuko.com/query',
         queryMethod: Ontodia.SparqlQueryMethod.GET,
       },
       SparqlDialect
