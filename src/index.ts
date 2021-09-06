@@ -7,16 +7,16 @@ import * as ReactDOM from 'react-dom';
 import '../css/explorer.css';
 
 /**
- * Ontodia import
+ * GraphExplorer import
  */
-import * as Ontodia from 'ontodia';
+import * as GraphExplorer from 'graph-explorer';
 
 import { workspaceProps } from './workspaceProps';
 
 // ReactJS way of adding components
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    React.createElement(Ontodia.Workspace, workspaceProps),
-    document.getElementById('onto-container')
+    React.createElement(GraphExplorer.Workspace, workspaceProps),
+    document.getElementById('graph-explorer-container')
   );
 });

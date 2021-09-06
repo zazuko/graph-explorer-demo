@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { WorkspaceLanguage } from 'ontodia';
+import { WorkspaceLanguage } from 'graph-explorer';
 
 export interface ToolbarProps {
   canSaveDiagram?: boolean;
@@ -22,7 +22,7 @@ export interface ToolbarProps {
   hidePanels?: boolean;
 }
 
-const CLASS_NAME = 'ontodia-toolbar';
+const CLASS_NAME = 'graph-explorer-toolbar';
 
 export class DefaultToolbar extends React.Component<
   ToolbarProps,
@@ -84,8 +84,8 @@ export class DefaultToolbar extends React.Component<
           }, 3000);
         }}
       >
-        <span className="ontodia-btn ontodia-btn-default">
-          <label className="ontodia-label">
+        <span className="graph-explorer-btn graph-explorer-btn-default">
+          <label className="graph-explorer-label">
             {this.state.shortenTooBig ? (
               <span>This diagram is too big to save.</span>
             ) : (
@@ -111,7 +111,7 @@ export class DefaultToolbar extends React.Component<
     ) : (
       <button
         type="button"
-        className="saveDiagramButton ontodia-btn ontodia-btn-primary"
+        className="saveDiagramButton graph-explorer-btn graph-explorer-btn-primary"
         disabled={this.props.canSaveDiagram === false}
         onClick={onClick}
       >
@@ -127,7 +127,7 @@ export class DefaultToolbar extends React.Component<
     return (
       <button
         type="button"
-        className="saveDiagramButton ontodia-btn ontodia-btn-success"
+        className="saveDiagramButton graph-explorer-btn graph-explorer-btn-success"
         disabled={this.props.canPersistChanges === false}
         onClick={this.props.onPersistChanges}
       >
@@ -143,8 +143,10 @@ export class DefaultToolbar extends React.Component<
     }
 
     return (
-      <span className={`ontodia-btn-group ${CLASS_NAME}__language-selector`}>
-        <label className="ontodia-label">
+      <span
+        className={`graph-explorer-btn-group ${CLASS_NAME}__language-selector`}
+      >
+        <label className="graph-explorer-label">
           <span>Data Language - </span>
         </label>
         <select value={selectedLanguage} onChange={this.onChangeLanguage}>
@@ -161,13 +163,13 @@ export class DefaultToolbar extends React.Component<
   render() {
     return (
       <div className={CLASS_NAME}>
-        <div className="ontodia-btn-group ontodia-btn-group-sm">
+        <div className="graph-explorer-btn-group graph-explorer-btn-group-sm">
           {this.renderSaveDiagramButton()}
           {this.renderPersistAuthoredChangesButton()}
           {this.props.onClearAll ? (
             <button
               type="button"
-              className="ontodia-btn ontodia-btn-default"
+              className="graph-explorer-btn graph-explorer-btn-default"
               title="Clear All"
               onClick={this.props.onClearAll}
             >
@@ -177,7 +179,7 @@ export class DefaultToolbar extends React.Component<
           ) : null}
           <button
             type="button"
-            className="ontodia-btn ontodia-btn-default"
+            className="graph-explorer-btn graph-explorer-btn-default"
             title="Force layout"
             onClick={this.props.onForceLayout}
           >
@@ -185,7 +187,7 @@ export class DefaultToolbar extends React.Component<
           </button>
           <button
             type="button"
-            className="ontodia-btn ontodia-btn-default"
+            className="graph-explorer-btn graph-explorer-btn-default"
             title="Zoom In"
             onClick={this.props.onZoomIn}
           >
@@ -193,7 +195,7 @@ export class DefaultToolbar extends React.Component<
           </button>
           <button
             type="button"
-            className="ontodia-btn ontodia-btn-default"
+            className="graph-explorer-btn graph-explorer-btn-default"
             title="Zoom Out"
             onClick={this.props.onZoomOut}
           >
@@ -201,7 +203,7 @@ export class DefaultToolbar extends React.Component<
           </button>
           <button
             type="button"
-            className="ontodia-btn ontodia-btn-default"
+            className="graph-explorer-btn graph-explorer-btn-default"
             title="Fit to Screen"
             onClick={this.props.onZoomToFit}
           >
@@ -209,7 +211,7 @@ export class DefaultToolbar extends React.Component<
           </button>
           <button
             type="button"
-            className="ontodia-btn ontodia-btn-default"
+            className="graph-explorer-btn graph-explorer-btn-default"
             title="Export diagram as PNG"
             onClick={this.onExportPNG}
           >
@@ -217,7 +219,7 @@ export class DefaultToolbar extends React.Component<
           </button>
           <button
             type="button"
-            className="ontodia-btn ontodia-btn-default"
+            className="graph-explorer-btn graph-explorer-btn-default"
             title="Export diagram as SVG"
             onClick={this.onExportSVG}
           >
@@ -225,7 +227,7 @@ export class DefaultToolbar extends React.Component<
           </button>
           <button
             type="button"
-            className="ontodia-btn ontodia-btn-default"
+            className="graph-explorer-btn graph-explorer-btn-default"
             title="Print diagram"
             onClick={this.props.onPrint}
           >

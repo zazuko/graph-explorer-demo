@@ -7,9 +7,9 @@ import {
   Property,
   isIriProperty,
   isLiteralProperty,
-} from 'ontodia';
-import { isEncodedBlank } from 'ontodia/src/ontodia/data/sparql/blankNodes';
-const CLASS_NAME = 'ontodia-standard-template';
+} from 'graph-explorer';
+import { isEncodedBlank } from 'graph-explorer/src/graph-explorer/data/sparql/blankNodes';
+const CLASS_NAME = 'graph-explorer-standard-template';
 
 /* Default Template from Ontodia */
 

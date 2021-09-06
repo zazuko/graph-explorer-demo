@@ -1,29 +1,29 @@
 @charset "UTF-8";
 
-#onto-container {
+#graph-explorer-container {
   height: 100vh;
   display: flex;
   margin: 10px;
   flex-direction: column;
 }
 
-#onto-container .ontodia {
+#graph-explorer-container .graph-explorer {
   overflow: hidden;
 }
 
-.content-inner.fullscreen #onto-container {
+.content-inner.fullscreen #graph-explorer-container {
   height: calc(100vh - 85px);
 }
 
-.ontodia-paper-area__watermark {
+.graph-explorer-paper-area__watermark {
   display: none !important;
 }
 
-.ontodia-toolbar__language-selector label {
+.graph-explorer-toolbar__language-selector label {
   margin-left: 10px;
 }
 
-.ontodia-toolbar button::after {
+.graph-explorer-toolbar button::after {
   content: " "
 }
 

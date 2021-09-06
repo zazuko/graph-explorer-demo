@@ -6,7 +6,7 @@ import {
   Dictionary,
   LocalizedString,
   Property,
-} from '../../node_modules/ontodia/src/ontodia/data/model';
+} from '../../node_modules/graph-explorer/src/graph-explorer/data/model';
 
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css'; // Re-uses images from ~leaflet package
@@ -96,7 +96,7 @@ export class TestTemplate extends React.Component<TemplateProps, {}> {
       .filter(Boolean);
     return (
       <div
-        className="ontodia-standard-template"
+        className="graph-explorer-standard-template"
         style={{ borderColor: this.props.color }}
       >
         <div className={this.props.iconUrl} />

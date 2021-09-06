@@ -1,14 +1,16 @@
-# ontodia-demo
-Demo of customized Ontodia
+# graph-explorer-demo
+Demo of customized [graph-explorer](https://github.com/zazuko/graph-explorer) ([npm](https://www.npmjs.com/package/graph-explorer))
 
 Usage:
 
+```
 npm install
 npm run start
+```
 
-http://localhost:8088/
+and visit <http://localhost:8088/>
 
-shows ontodia to show any resource in the system: add ?resource=
+To show any particular resource in the system: add `?resource=`:
 
 http://localhost:8088/?resource=http://lod.opentransportdata.swiss/didok/8588701
 

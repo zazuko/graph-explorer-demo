@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as Ontodia from 'ontodia';
+import * as GraphExplorer from 'graph-explorer';
 import * as LZString from 'lz-string';
 import {
   WorkspaceProps,
@@ -11,7 +11,7 @@ import {
   SerializedDiagram,
   ElementIri,
   ElementTemplate,
-} from 'ontodia';
+} from 'graph-explorer';
 import { ClassAttributes } from 'react';
 // import { Toolbar } from './toolbarCustomization';
 import { DefaultToolbar } from './templates/toolbar';
@@ -68,7 +68,7 @@ const TestTypeStyleBundle = (types: string[]): CustomTypeStyle | undefined => {
 };
 
 /**
- * ontodia function fired when the workspace is mounted, this is the point where the
+ * graph-explorer function fired when the workspace is mounted, this is the point where the
  * data initialization takes place
  */
 function onWorkspaceMounted(workspace: Workspace) {
@@ -81,11 +81,11 @@ function onWorkspaceMounted(workspace: Workspace) {
    */
   const model = workspace.getModel();
   /**
-   * see https://github.com/metaphacts/ontodia/blob/master/src/ontodia/data/sparql/sparqlDataProviderSettings.ts
+   * see https://github.com/zazuko/graph-explorer/blob/master/src/graph-explorer/data/sparql/sparqlDataProviderSettings.ts
    *
    * we pickup the OWLRDFSSetting and replace some of the queries with stardog variants
    */
-  const SparqlDialect = Ontodia.OWLRDFSSettings;
+  const SparqlDialect = GraphExplorer.OWLRDFSSettings;
   /**
    * user Stardog defined functions, requires FT search to be enabled
    */
@@ -111,10 +111,10 @@ function onWorkspaceMounted(workspace: Workspace) {
     diagram?: SerializedDiagram;
     hideUnusedLinkTypes?: boolean;
   } = {
-    dataProvider: new Ontodia.SparqlDataProvider(
+    dataProvider: new GraphExplorer.SparqlDataProvider(
       {
         endpointUrl: 'https://ld.zazuko.com/query',
-        queryMethod: Ontodia.SparqlQueryMethod.GET,
+        queryMethod: GraphExplorer.SparqlQueryMethod.GET,
       },
       SparqlDialect
     ),
